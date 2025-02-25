@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes - YumBook</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FFF5F5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            height: 100%;
+            
+        }
+
+        /* Header */
+        .header {
+            background-color: #e179bfd9;
+            padding: 0.5rem 0;
+            position: relative;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            background-color: transparent;
+            padding: 0.5rem 1rem;
+            box-shadow: none;
+            z-index: 10;
+            text-align: center;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            transform: none;
+            left: 0;
+            bottom: 0;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        #authButtons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        #guestButtons, #userButtons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #FFF;
+            color: #e179bfd9;
+        }
+
+        .btn-edit {
+            background-color: #c39bd3;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .btn-edit:hover {
+            background-color: #bb93cb;
+        }
+        .btn-danger {
+            background-color: #F44336;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .auth-container {
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 3px dashed #FFD1DC;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 3rem auto;
+            width: 90%;
+            
+        }
+        /* Main content */
+        main.container {
+            padding: 2rem 1rem;
+            margin-top: 1rem;
+            width:1000px;
+            height: 1000px;
+            
+        }
+
+        .recipes-container {
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 3px dashed #FFD1DC;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            width: 100%;
+        }
+
+        .recipes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .recipes-header h1 {
+            font-size: 2.5rem;
+            color: #e179bfd9;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input, .search-bar select {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #FFD1DC;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus, .search-bar select:focus {
+            border-color: #e179bfd9;
+        }
+
+        /* Recipe grid */
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .recipe-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border: 2px solid #FFD1DC;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 1.5rem;
+        }
+
+        .recipe-title {
+            color: #e179bfd9;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .recipe-category {
+            display: inline-block;
+            background-color: #FFD1DC;
+            color: #5D4037;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-description {
+            color: #5D4037;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer{
+        background-color: #e179bfd9;
+        }
+
+        .footerContainer{
+            height: 150%;;
+            width: 100%;
+            padding: 70px 30px 20px ;
+        }
+
+        .footerBottom{
+            background-color: #e179bfd9;
+            padding: 20px;
+            text-align: center;
+            font-size: large;
+            font-weight: 600;
+        }
+
+        .footerBottom p{
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            #authButtons {
+                justify-content: center;
+            }
+
+            .recipes-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .search-bar input, .search-bar select {
+                width: 100%;
+            }
+
+            .recipes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <img src="css/cake.png">
+                <!-- <i class="fas fa-utensils"></i>--> YumBook
+            </a>
+            <nav class="nav-links">
+                <div id="authButtons">
+                    <div id="guestButtons" style="display: none;">
+                        <button onclick="location.href='register.html'" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                        <button onclick="location.href='login.html'" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                    <div id="userButtons" style="display: none;">
+                        <button onclick="location.href='add-recipe.html'" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Recipe
+                        </button>
+                        <button onclick="logout()" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+                <button onclick="location.href='profile.html'" class="btn btn-primary">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="recipes-container">
+            <div class="recipes-header">
+                <h1><i class="fas fa-book-open"></i> Recipes</h1>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search recipes...">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="drinks">Drinks</option>
+                    </select>
+                </div>
+            </div>
+            <div id="recipes-grid" class="recipes-grid">
+                <!-- Рецепты будут добавлены здесь через JavaScript -->
+            </div>
+        </div>
+    </main>
+    <div class="footerBottom">
+        <p>Copyright &copy;2025; Designed by Arailym, Zhansaya and Angsar</p>
+    </div>
+    <script>
+        let currentUser = null;
+        let recipes = [];
+
+        // Проверка авторизации и управление отображением кнопок
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const guestButtons = document.getElementById('guestButtons');
+            const userButtons = document.getElementById('userButtons');
+
+            if (token) {
+                guestButtons.style.display = 'none';
+                userButtons.style.display = 'flex';
+                getCurrentUser();
+            } else {
+                guestButtons.style.display = 'flex';
+                userButtons.style.display = 'none';
+            }
+        }
+
+        // Получение текущего пользователя
+        async function getCurrentUser() {
+            const token = localStorage.getItem('token');
+            if (!token) return null;
+
+            try {
+                const response = await fetch('/api/users/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (response.ok) {
+                    currentUser = await response.json();
+                }
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        }
+
+        // Загрузка рецептов
+        async function loadRecipes() {
+            try {
+                const response = await fetch('/api/recipes');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recipes');
+                }
+                recipes = await response.json();
+                displayRecipes(recipes);
+            } catch (error) {
+                console.error('Error loading recipes:', error);
+                showError('Failed to load recipes');
+            }
+        }
+
+        // Отображение рецептов
+        function displayRecipes(recipesToShow) {
+    const recipesGrid = document.getElementById('recipes-grid');
+    recipesGrid.innerHTML = recipesToShow.map(recipe => `
+        <div class="recipe-card" onclick="viewRecipeDetails('${recipe._id}')">
+            <img src="${recipe.image || 'https://via.placeholder.com/300x200'}" 
+                 alt="${recipe.title}" 
+                 class="recipe-image">
+            <div class="recipe-content">
+                <h3 class="recipe-title">${recipe.title}</h3>
+                <span class="recipe-category">${recipe.category}</span>
+                <p class="recipe-description">${recipe.description}</p>
+                ${currentUser && (currentUser._id === recipe.createdBy || currentUser.role === 'admin') ? `
+                    <div class="recipe-actions">
+                        <button onclick="editRecipe('${recipe._id}'); event.stopPropagation();" class="btn btn-edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button onclick="deleteRecipe('${recipe._id}'); event.stopPropagation();" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                ` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Функция для просмотра деталей рецепта
+function viewRecipeDetails(recipeId) {
+    // Сохраняем ID рецепта в localStorage для использования на странице деталей
+    localStorage.setItem('viewRecipeId', recipeId);
+    // Перенаправляем на страницу деталей
+    window.location.href = `recipe-details.html`;
+}
+
+        // Удаление рецепта
+        async function deleteRecipe(recipeId) {
+            if (!confirm('Вы уверены, что хотите удалить этот рецепт?')) return;
+
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch(`/api/recipes/${recipeId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    recipes = recipes.filter(r => r._id !== recipeId);
+                    displayRecipes(recipes);
+                    showSuccess('Рецепт успешно удален');
+                } else {
+                    const data = await response.json();
+                    throw new Error(data.message || 'Ошибка при удалении рецепта');
+                }
+            } catch (error) {
+                console.error('Error deleting recipe:', error);
+                showError(error.message);
+            }
+        }
+
+        // Поиск и фильтрация
+        document.getElementById('searchInput').addEventListener('input', filterRecipes);
+        document.getElementById('categoryFilter').addEventListener('change', filterRecipes);
+
+        function filterRecipes() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            const filteredRecipes = recipes.filter(recipe => {
+                const matchesSearch = recipe.title.toLowerCase().includes(searchTerm) ||
+                                   recipe.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = !category || recipe.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            displayRecipes(filteredRecipes);
+        }
+
+
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+
+        function showSuccess(message) {
+            // ... существующий код ...
+        }
+
+        function showError(message) {
+            // ... существующий код ...
+        }
+
+        // Добавим функцию редактирования
+        function editRecipe(recipeId) {
+            // Сохраняем ID рецепта для редактирования
+            localStorage.setItem('editRecipeId', recipeId);
+            // Перенаправляем на страницу редактирования
+            window.location.href = `edit-recipe.html`;
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadRecipes();
+        });
+    </script>
+</body>
+</html>

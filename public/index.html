@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Recipe Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: #FFF5F5;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    /* Completely redesigned header */
+    .header {
+        background-color: #e179bfd9;
+        padding: 0.5rem 0;
+        position: relative;
+        height: 80px; /* Reduced height to keep logo inside */
+        display: flex;
+        align-items: center;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .logo {
+        text-decoration: none;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        position: relative; /* Changed from absolute to relative */
+        background-color: transparent; /* Removed background */
+        padding: 0.5rem 1rem;
+        box-shadow: none; /* Removed shadow */
+        z-index: 10;
+        text-align: center;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        transform: none; /* Removed transformation */
+        left: 0; /* Removed left positioning */
+        bottom: 0; /* Removed bottom positioning */
+    }
+
+    .logo img {
+        width: 40px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .nav-links {
+        width: 100%;
+        margin-top: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Fixed button placement - moved to right side */
+    #authButtons {
+        display: flex;
+        justify-content: flex-end; /* Align buttons to the right */
+        gap: 1rem;
+        margin-left: auto; /* This helps push the buttons to the right */
+    }
+
+    #guestButtons, #userButtons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    #guestButtons .btn-secondary, 
+    #userButtons .btn-secondary,
+    #guestButtons .btn-primary, 
+    #userButtons .btn-primary {
+        position: static;
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #FFF;
+        color: #e179bfd9;
+    }
+
+    .btn-secondary {
+        background-color: #e179bfd9;
+        color: white;
+    }
+
+    /* Main content area */
+    .main-container {
+        padding: 2rem 1rem;
+        margin-top: 0;
+    }
+
+    .content-container {
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        border: 3px dashed #FFD1DC;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        width: 100%; /* Fixed width issue - was set to 2200px */
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #e179bfd9;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    /* Features section */
+    .features-section {
+        margin-top: 3rem;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 20px;
+        background: white;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+        border: 3px solid #FFD1DC;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #e179bfd9;
+        margin-bottom: 1rem;
+    }
+
+    .feature-title {
+        color: #e179bfd9;
+        margin-bottom: 0.8rem;
+        font-size: 1.3rem;
+    }
+
+    .feature-description {
+        color: #5D4037;
+        font-size: 0.95rem;
+    }
+
+    /* Recipe list */
+    #recipes-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 3rem auto;
+    }
+
+    .recipe-card {
+        background-color: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+        border: 2px solid #FFD1DC;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .recipe-card h3 {
+        color: #e179bfd9;
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+
+    .recipe-card p {
+        color: #5D4037;
+        font-size: 0.9rem;
+    }
+
+    /* Hero section redesigned - fixed button placement */
+    .hero-section {
+        background-image: url('https://i.pinimg.com/736x/c3/12/2d/c3122d6af7f40068e1f450c06405dab9.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 8rem 1rem 4rem 1rem;
+        position: relative;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #5D4037;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .hero-slogan {
+        font-size: 1.5rem;
+        font-weight: 300;
+        color: #5D4037;
+        margin-bottom: 2rem;
+    }
+
+    /* Fixed button placement for hero buttons - removed angles and repositioned */
+    .hero-buttons {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+        gap: 1.5rem; /* Space between buttons */
+        margin-top: 2rem;
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+
+    .hero-btn {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transform: none !important; /* Remove all rotation */
+    }
+
+    /* Remove specific positioning and rotation for buttons */
+    .hero-btn:nth-child(1),
+    .hero-btn:nth-child(2) {
+        align-self: center;
+        transform: none;
+    }
+
+    .hero-btn:hover {
+        transform: scale(1.05) !important; /* Keep the scale hover effect */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    footer{
+        background-color: #e179bfd9;
+    }
+    .footerContainer{
+        height: 150%;;
+        width: 100%;
+        padding: 70px 30px 20px ;
+    }
+
+    .footerBottom{
+        background-color: #e179bfd9;
+        padding: 20px;
+        text-align: center;
+        font-size: large;
+        font-weight: 600;
+    }
+    .footerBottom p{
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            height: auto;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #authButtons {
+            justify-content: center;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+            }
+            .text-overlay {
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 80%;
+            line-height: 1.8;
+            margin: 1.5rem auto;
+            text-align: center;
+            border: 3px dashed #FFD1DC; /* Matching your existing dashed border style */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .trending-section {
+        margin: 4rem 0;
+        padding: 2rem 0;
+    }
+
+    .trending-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: #e179bfd9;
+    }
+
+    .trending-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .trending-cards {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        padding: 1rem 0.5rem;
+        max-width: 100%;
+    }
+
+    .trending-card {
+        flex: 0 0 auto;
+        width: 250px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .trending-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .trending-img-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .trending-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .like-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .like-btn i {
+        color: #e179bfd9;
+        font-size: 1.2rem;
+    }
+
+    .food-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        margin: 1rem 1rem 0.5rem;
+        min-height: 40px;
+    }
+
+    .food-description {
+        font-size: 0.8rem;
+        color: #666;
+        margin: 0 1rem 0.5rem;
+        font-style: italic;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+    }
+
+    .stars {
+        color: #FFD700;
+        margin-right: 5px;
+    }
+
+    .reviews {
+        color: #777;
+        font-size: 0.9rem;
+    }
+
+    .trending-nav-btn {
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        z-index: 10;
+    }
+
+    .prev-btn {
+        left: 0;
+    }
+
+    .next-btn {
+        right: 0;
+    }
+
+    @media (max-width: 768px) {
+        .trending-cards {
+            padding: 1rem 0;
+        }
+        
+        .trending-card {
+            width: 200px;
+        }
+        
+        .trending-nav-btn {
+            display: none;
+        }
+    }
+        </style>
+    </head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <img src="css/cake.png">
+                YumBook
+            </a>
+            <nav class="nav-links">
+                <div id="authButtons">
+                    <div id="guestButtons" style="display: none;">
+                        <button onclick="location.href='register.html'" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                        <button onclick="location.href='login.html'" class="btn btn-primary">Login
+                        </button>
+                    </div>
+
+                    <!-- Buttons for authenticated users -->
+                    <div id="userButtons" style="display: none;">
+                        <button onclick="location.href='add-recipe.html'" class="btn btn-p">
+                            <i class="fas fa-plus"></i> Add Recipe
+                        </button>
+                        <button onclick="logout()" class="btn btn-primary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <div class="content-container">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="text-overlay">
+                    <h1 class="hero-title">Organize Your Recipes</h1>
+                    <p class="hero-slogan">Save, manage, and discover amazing recipes</p>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <div class="hero-buttons">
+                <button onclick="location.href='recipes.html'" class="btn btn-secondary hero-btn">
+                    <i class="fas fa-book"></i> Browse Recipes
+                </button>
+                <button onclick="location.href='add-recipe.html'" class="btn btn-secondary hero-btn">
+                    <i class="fas fa-plus"></i> Add New Recipe
+                </button>
+            </div>
+
+            <section class="about-section">
+                <div class="container">
+                    <h2 class="section-title">About us</h2>
+                    <div class="text-overlay">
+                        <p class="about-text">
+                            Welcome to Yumbook, where every recipe is a little pink miracle! Here you'll find the most delightful dishes, from hearty meals to refreshing drinks, to satisfy every taste. Immerse yourself in a world of culinary magic, where every step of preparation turns into an exciting adventure. Yumbook is not just a collection of recipes, it's a place where culinary masterpieces are born, filled with love and tenderness. Discover new facets of flavor and treat yourself and your loved ones to unforgettable dishes, prepared with soul.
+                        </p>
+                        <p class="about-text">
+                            It all started with a little pink dream – to create a place where everyone could find a recipe they love. Yumbook was born from a love of cooking and a desire to share the joy of preparing delicious food. At first, it was a small notebook with favorite recipes, handwritten, and then it turned into a cozy online home for everyone who loves to cook.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+
+            <section class="trending-section">
+                <h2 class="trending-title">Trending now</h2>
+                <div class="trending-container">
+                   
+                    <div class="trending-cards">
+                        <!-- Card 1 -->
+                        <div class="trending-card">
+                            <div class="trending-img-container">
+                                <img src="css/lasagna.jpeg" alt="Food Item 1">
+                                <button class="like-btn">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <h3 class="food-title">Italian Lasagna</h3>
+                            <p class="food-description"> A classic Italian dish made with layers of pasta, rich meat or vegetable sauce, creamy béchamel, and melted cheese, baked to perfection.</p>
+                            <div class="rating">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="reviews">(35)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="trending-card">
+                            <div class="trending-img-container">
+                                <img src="css/cookie.jpeg" alt="Food Item 2">
+                                <button class="like-btn">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <h3 class="food-title">Chocolate Chip Cookies</h3>
+                            <p class="food-description">Chewy or crispy cookies loaded with sweet chocolate chips, offering a perfect balance of buttery dough and rich chocolate flavor.</p>
+                            <div class="rating">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="reviews">(381)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 3 -->
+                        <div class="trending-card">
+                            <div class="trending-img-container">
+                                <img src="css/cinnamon.jpeg" alt="Food Item 3">
+                                <button class="like-btn">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <h3 class="food-title">Cinnamon rolls</h3>
+                            <p class="food-description">These soft, gooey homemade cinnamon rolls are filled with cinnamon brown sugar and topped with sweet vanilla glaze—way better than store-bought!</p>
+                            <div class="rating">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="reviews">(306)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Card 4 -->
+                        <div class="trending-card">
+                            <div class="trending-img-container">
+                                <img src="css/strawb.jpeg" alt="Food Item 4">
+                                <button class="like-btn">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <h3 class="food-title">Strawberry Milkshake</h3>
+                            <p class="food-description"> A creamy and refreshing drink made with blended strawberries, milk, and ice cream, delivering a sweet and fruity taste.</p>
+                            <div class="rating">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="reviews">(303)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        async function fetchRecipes() {
+            try {
+                let response = await fetch('/api/recipes');
+                let recipes = await response.json();
+
+                // Save to localStorage
+                localStorage.setItem("recipes", JSON.stringify(recipes));
+
+                console.log("Recipes loaded and saved to localStorage:", recipes);
+            } catch (error) {
+                console.error("Error loading recipes:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchRecipes);
+
+        // Check authentication and manage button display
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const guestButtons = document.getElementById('guestButtons');
+            const userButtons = document.getElementById('userButtons');
+
+            if (token) {
+                guestButtons.style.display = 'none';
+                userButtons.style.display = 'flex';
+            } else {
+                guestButtons.style.display = 'flex';
+                userButtons.style.display = 'none';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+        });
+
+        // Trending section navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const trendingCards = document.querySelector('.trending-cards');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            if (prevBtn && nextBtn && trendingCards) {
+                nextBtn.addEventListener('click', () => {
+                    trendingCards.scrollBy({
+                        left: 250 + 16, // card width + gap
+                        behavior: 'smooth'
+                    });
+                });
+                
+                prevBtn.addEventListener('click', () => {
+                    trendingCards.scrollBy({
+                        left: -(250 + 16), // card width + gap
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+
+    <footer>
+        <div class="footerBottom">
+            <p>Copyright &copy;2025; Designed by Arailym, Zhansaya and Angsar</p>
+        </div>
+    </footer>   
+
+</body>
+</html>

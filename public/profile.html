@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - YumBook</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #FFF5F5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background-color: #e179bfd9;
+            padding: 0.5rem 0;
+            position: relative;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            background-color: transparent;
+            padding: 0.5rem 1rem;
+            box-shadow: none;
+            z-index: 10;
+            text-align: center;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            transform: none;
+            left: 0;
+            bottom: 0;
+        }
+
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+        background-color: #FFF;
+        color: #e179bfd9;
+    }
+
+        .btn-secondary {
+            background-color: #e179bfd9;
+            color: white;
+        }
+
+        /* Auth container styles */
+        .auth-container {
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 3px dashed #FFD1DC;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 3rem auto;
+            width: 90%;
+        }
+
+        .auth-container h2 {
+            font-size: 2rem;
+            color: #e179bfd9;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .auth-container h3 {
+            font-size: 1.5rem;
+            color: #5D4037;
+            margin-bottom: 1rem;
+            border-bottom: 2px dashed #FFD1DC;
+            padding-bottom: 0.5rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #5D4037;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group input {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #FFD1DC;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #e179bfd9;
+        }
+
+        .auth-form .btn {
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #5D4037;
+        }
+
+        .auth-links a {
+            color: #e179bfd9;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .auth-links a:hover {
+            color: #5D4037;
+            text-decoration: underline;
+        }
+
+        /* Success and error messages */
+        .success-message, .error-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-message {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #A5D6A7;
+        }
+
+        .error-message {
+            background-color: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #FFCDD2;
+        }
+
+        .footer {
+            background-color: #e179bfd9;
+        }
+
+        .footerContainer {
+            height: 150%;
+            width: 100%;
+            padding: 70px 30px 20px;
+        }
+
+        .footerBottom {
+            background-color: #e179bfd9;
+            padding: 20px;
+            text-align: center;
+            font-size: large;
+            font-weight: 600;
+        }
+
+        .footerBottom p {
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .auth-container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <img src="css/cake.png">
+                <!-- <i class="fas fa-utensils"></i>--> YumBook
+            </a>
+            <nav class="nav-links">
+                <button onclick="location.href='recipes.html'" class="btn btn-primary">
+                    <i class="fas fa-book"></i>All Recipes
+                </button>
+                <button onclick="logout()" class="btn btn-primary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-container">
+            <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
+            
+            <!-- Форма изменения email -->
+            <form id="emailForm" class="auth-form">
+                <h3>Change Email</h3>
+                <div class="form-group">
+                    <label for="newEmail">
+                        <i class="fas fa-envelope"></i> New Email:
+                    </label>
+                    <input type="email" id="newEmail" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Update Email
+                </button>
+            </form>
+
+            <!-- Форма изменения пароля -->
+            <form id="passwordForm" class="auth-form">
+                <h3>Change Password</h3>
+                <div class="form-group">
+                    <label for="currentPassword">
+                        <i class="fas fa-lock"></i> Current Password:
+                    </label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">
+                        <i class="fas fa-key"></i> New Password:
+                    </label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">
+                        <i class="fas fa-check"></i> Confirm New Password:
+                    </label>
+                    <input type="password" id="confirmNewPassword" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Проверка аутентификации
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+            }
+            loadUserData();
+        });
+
+        // Загрузка данных пользователя
+        async function loadUserData() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/users/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const user = await response.json();
+                document.getElementById('newEmail').value = user.email;
+            } catch (error) {
+                showError('Error loading user data');
+            }
+        }
+
+        // Обработка формы изменения email
+        document.getElementById('emailForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newEmail = document.getElementById('newEmail').value;
+            
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/users/update-email', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ email: newEmail })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('userEmail', newEmail);
+                    showSuccess('Email updated successfully');
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                showError(error.message);
+            }
+        });
+
+        // Обработка формы изменения пароля
+        document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmNewPassword) {
+                showError('New passwords do not match');
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('/api/users/update-password', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword
+                    })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showSuccess('Password updated successfully');
+                    document.getElementById('passwordForm').reset();
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                showError(error.message);
+            }
+        });
+
+        function showSuccess(message) {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                ${message}
+            `;
+            document.querySelector('.auth-container').appendChild(successMessage);
+            setTimeout(() => successMessage.remove(), 3000);
+        }
+
+        function showError(message) {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.innerHTML = `
+                <i class="fas fa-exclamation-circle"></i>
+                ${message}
+            `;
+            document.querySelector('.auth-container').appendChild(errorMessage);
+            setTimeout(() => errorMessage.remove(), 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <footer>
+        <div class="footerBottom">
+            <p>Copyright &copy;2025; Designed by Arailym, Zhansaya and Angsar</p>
+        </div>
+    </footer>   
+</body>
+</html> 
