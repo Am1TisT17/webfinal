@@ -9,12 +9,10 @@ const userRoutes = require('./routes/user');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// MongoDB Atlas connection
 mongoose.connect(process.env.MONGO_URI, {
     dbName: process.env.DB_NAME,
     useNewUrlParser: true,
@@ -22,7 +20,6 @@ mongoose.connect(process.env.MONGO_URI, {
 })
 .then(() => {
     console.log('MongoDB Connected successfully');
-    // Create indexes for better query performance
     return Promise.all([
         mongoose.connection.collection('recipes').createIndex({ title: 1, category: 1 }),
         mongoose.connection.collection('users').createIndex({ email: 1 }, { unique: true })
@@ -35,17 +32,14 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('MongoDB connection error:', err);
 });
 
-// Routes
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/users', userRoutes);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
 });
 
-// Try different ports if the default one is in use
 function startServer(port) {
     if (port >= 65536) {
         console.error('No available ports found');
@@ -66,10 +60,8 @@ function startServer(port) {
         });
 }
 
-// Start server
 startServer(PORT);
 
-// Handle process termination
 process.on('SIGINT', async () => {
     try {
         await mongoose.disconnect();
