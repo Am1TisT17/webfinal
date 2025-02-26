@@ -3,7 +3,6 @@ const Recipe = require('../models/recipe');
 const userAuth = require('./user');
 const router = express.Router();
 
-// Get all recipes (public)
 router.get('/', async (req, res) => {
     try {
         const recipes = await Recipe.find();
@@ -13,7 +12,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Search recipes by title or category
 router.get('/search', async (req, res) => {
     try {
         const { query } = req.query;
@@ -29,7 +27,6 @@ router.get('/search', async (req, res) => {
     }
 });
 
-// Get recipes by category
 router.get('/category/:category', async (req, res) => {
     try {
         const recipes = await Recipe.find({ 
@@ -41,7 +38,6 @@ router.get('/category/:category', async (req, res) => {
     }
 });
 
-// Get a single recipe by ID
 router.get('/:id', async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
@@ -55,7 +51,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Add a new recipe (authenticated users only)
 router.post('/', userAuth.verifyToken, async (req, res) => {
     try {
         const recipe = new Recipe({
@@ -73,21 +68,18 @@ router.post('/', userAuth.verifyToken, async (req, res) => {
     }
 });
 
-// Update a recipe (admin can edit any, users can edit only their own)
+
 router.put('/:id', userAuth.verifyToken, async (req, res) => {
     try {
         const user = req.user;
         let recipe;
 
-        // Сначала найдем существующий рецепт
         const existingRecipe = await Recipe.findById(req.params.id);
         if (!existingRecipe) {
             return res.status(404).json({ message: 'Рецепт не найден' });
         }
 
-        // Проверяем права на редактирование
         if (user.role === 'admin' || existingRecipe.createdBy.toString() === user.userId) {
-            // Сохраняем существующие данные, которые не должны быть изменены
             const updatedRecipe = {
                 ...req.body,
                 createdBy: existingRecipe.createdBy, // Сохраняем оригинального создателя
@@ -112,17 +104,14 @@ router.put('/:id', userAuth.verifyToken, async (req, res) => {
     }
 });
 
-// Delete a recipe (admin can delete any, users can delete only their own)
 router.delete('/:id', userAuth.verifyToken, async (req, res) => {
     try {
         const user = req.user;
         let recipe;
 
         if (user.role === 'admin') {
-            // Админ может удалить любой рецепт
             recipe = await Recipe.findByIdAndDelete(req.params.id);
         } else {
-            // Обычный пользователь может удалить только свой рецепт
             recipe = await Recipe.findOneAndDelete({ 
                 _id: req.params.id, 
                 createdBy: user.userId 
