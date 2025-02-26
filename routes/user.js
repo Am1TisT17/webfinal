@@ -131,7 +131,7 @@ router.post('/login', async (req, res) => {
 
         // Проверка пароля
         const validPassword = await bcrypt.compare(password, user.password);
-        console.log('Password valid:', validPassword); // Для отладки
+        console.log('Password valid:', validPassword); 
 
         if (!validPassword) {
             return res.status(400).json({ 
