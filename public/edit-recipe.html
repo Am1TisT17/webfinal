@@ -26,7 +26,6 @@
             padding: 0 1rem;
         }
 
-        /* Header */
         .header {
             background-color: #e179bfd9;
             padding: 0.5rem 0;
@@ -112,8 +111,6 @@
             background-color: #FFF;
             color: #e179bfd9;
         }
-
-        /* Auth container styles */
         .auth-container {
             max-width: 1000px;
             background: rgba(255, 255, 255, 0.9);
@@ -205,7 +202,6 @@
             text-decoration: underline;
         }
 
-        /* Success and error messages */
         .success-message, .error-message {
             padding: 1rem;
             border-radius: 10px;
@@ -349,7 +345,6 @@
             font-size: 1rem;
         }
 
-        /* Loading animation */
         .loading {
             text-align: center;
             padding: 3rem;
@@ -365,7 +360,6 @@
             font-size: 2rem;
         }
 
-        /* Enhanced Error styling */
         .error-message {
             text-align: center;
             padding: 2rem;
@@ -389,7 +383,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Footer styling */
         .footer {
             background-color: #e179bfd9;
             margin-top: 3rem;
@@ -418,7 +411,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive adjustments */
         @media (min-width: 768px) {
             .recipe-header {
                 flex-direction: row;
@@ -477,7 +469,6 @@
             }
         }
 
-        /* Additional styles for edit recipe page */
         .form-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -545,7 +536,6 @@
             }
         }
 
-        /* Loading indicator styles */
         .loading-indicator {
             display: flex;
             flex-direction: column;
@@ -776,8 +766,6 @@
             localStorage.removeItem('userEmail');
             window.location.href = 'login.html';
         }
-
-        // Load recipe data when page loads
         document.addEventListener('DOMContentLoaded', loadRecipe);
     </script>
 </body>

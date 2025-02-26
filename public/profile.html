@@ -26,7 +26,6 @@
             padding: 0 1rem;
         }
 
-        /* Header */
         .header {
             background-color: #e179bfd9;
             padding: 0.5rem 0;
@@ -194,7 +193,6 @@
             text-decoration: underline;
         }
 
-        /* Success and error messages */
         .success-message, .error-message {
             padding: 1rem;
             border-radius: 10px;
@@ -245,7 +243,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .header {
                 height: auto;
@@ -275,7 +272,7 @@
         <div class="container header-content">
             <a href="/" class="logo">
                 <img src="css/cake.png">
-                <!-- <i class="fas fa-utensils"></i>--> YumBook
+                YumBook
             </a>
             <nav class="nav-links">
                 <button onclick="location.href='recipes.html'" class="btn btn-primary">
@@ -292,7 +289,6 @@
         <div class="auth-container">
             <h2><i class="fas fa-user-edit"></i> Edit Profile</h2>
             
-            <!-- Форма изменения email -->
             <form id="emailForm" class="auth-form">
                 <h3>Change Email</h3>
                 <div class="form-group">
@@ -306,7 +302,6 @@
                 </button>
             </form>
 
-            <!-- Форма изменения пароля -->
             <form id="passwordForm" class="auth-form">
                 <h3>Change Password</h3>
                 <div class="form-group">
@@ -335,7 +330,6 @@
     </div>
 
     <script>
-        // Проверка аутентификации
         document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('token');
             if (!token) {
@@ -344,7 +338,6 @@
             loadUserData();
         });
 
-        // Загрузка данных пользователя
         async function loadUserData() {
             try {
                 const token = localStorage.getItem('token');
@@ -360,7 +353,6 @@
             }
         }
 
-        // Обработка формы изменения email
         document.getElementById('emailForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const newEmail = document.getElementById('newEmail').value;
@@ -388,7 +380,6 @@
             }
         });
 
-        // Обработка формы изменения пароля
         document.getElementById('passwordForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const currentPassword = document.getElementById('currentPassword').value;

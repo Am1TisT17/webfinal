@@ -47,18 +47,18 @@
         font-size: 2.5rem;
         font-weight: 700;
         color: white;
-        position: relative; /* Changed from absolute to relative */
-        background-color: transparent; /* Removed background */
+        position: relative;
+        background-color: transparent;
         padding: 0.5rem 1rem;
-        box-shadow: none; /* Removed shadow */
+        box-shadow: none; 
         z-index: 10;
         text-align: center;
         line-height: 1;
         display: flex;
         align-items: center;
-        transform: none; /* Removed transformation */
-        left: 0; /* Removed left positioning */
-        bottom: 0; /* Removed bottom positioning */
+        transform: none; 
+        left: 0;
+        bottom: 0; 
     }
 
     .logo img {
@@ -74,12 +74,11 @@
         justify-content: space-between;
     }
 
-    /* Fixed button placement - moved to right side */
     #authButtons {
         display: flex;
-        justify-content: flex-end; /* Align buttons to the right */
+        justify-content: flex-end;
         gap: 1rem;
-        margin-left: auto; /* This helps push the buttons to the right */
+        margin-left: auto; 
     }
 
     #guestButtons, #userButtons {
@@ -122,7 +121,6 @@
         color: white;
     }
 
-    /* Main content area */
     .main-container {
         padding: 2rem 1rem;
         margin-top: 0;
@@ -136,7 +134,7 @@
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         padding: 2rem;
         margin: 2rem auto;
-        width: 100%; /* Fixed width issue - was set to 2200px */
+        width: 100%;
     }
 
     .section-title {
@@ -146,7 +144,6 @@
         text-align: center;
     }
 
-    /* Features section */
     .features-section {
         margin-top: 3rem;
     }
@@ -189,7 +186,6 @@
         font-size: 0.95rem;
     }
 
-    /* Recipe list */
     #recipes-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -226,7 +222,6 @@
         font-size: 0.9rem;
     }
 
-    /* Hero section redesigned - fixed button placement */
     .hero-section {
         background-image: url('https://i.pinimg.com/736x/c3/12/2d/c3122d6af7f40068e1f450c06405dab9.jpg');
         background-size: cover;
@@ -256,13 +251,12 @@
         margin-bottom: 2rem;
     }
 
-    /* Fixed button placement for hero buttons - removed angles and repositioned */
     .hero-buttons {
         display: flex;
-        justify-content: center; /* Center the buttons */
-        gap: 1.5rem; /* Space between buttons */
+        justify-content: center; 
+        gap: 1.5rem; 
         margin-top: 2rem;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap; 
     }
 
     .hero-btn {
@@ -273,10 +267,9 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        transform: none !important; /* Remove all rotation */
+        transform: none !important; 
     }
 
-    /* Remove specific positioning and rotation for buttons */
     .hero-btn:nth-child(1),
     .hero-btn:nth-child(2) {
         align-self: center;
@@ -328,14 +321,14 @@
         }
             }
             .text-overlay {
-            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.7); 
             border-radius: 15px;
             padding: 2rem;
             max-width: 80%;
             line-height: 1.8;
             margin: 1.5rem auto;
             text-align: center;
-            border: 3px dashed #FFD1DC; /* Matching your existing dashed border style */
+            border: 3px dashed #FFD1DC; 
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         .trending-section {
@@ -503,7 +496,6 @@
                         </button>
                     </div>
 
-                    <!-- Buttons for authenticated users -->
                     <div id="userButtons" style="display: none;">
                         <button onclick="location.href='add-recipe.html'" class="btn btn-p">
                             <i class="fas fa-plus"></i> Add Recipe
@@ -624,7 +616,6 @@
                             </div>
                         </div>
                         
-                        <!-- Card 4 -->
                         <div class="trending-card">
                             <div class="trending-img-container">
                                 <img src="css/strawb.jpeg" alt="Food Item 4">
@@ -660,7 +651,6 @@
                 let response = await fetch('/api/recipes');
                 let recipes = await response.json();
 
-                // Save to localStorage
                 localStorage.setItem("recipes", JSON.stringify(recipes));
 
                 console.log("Recipes loaded and saved to localStorage:", recipes);
@@ -671,7 +661,6 @@
 
         document.addEventListener("DOMContentLoaded", fetchRecipes);
 
-        // Check authentication and manage button display
         function checkAuth() {
             const token = localStorage.getItem('token');
             const guestButtons = document.getElementById('guestButtons');
@@ -696,7 +685,6 @@
             checkAuth();
         });
 
-        // Trending section navigation
         document.addEventListener('DOMContentLoaded', function() {
             const trendingCards = document.querySelector('.trending-cards');
             const prevBtn = document.querySelector('.prev-btn');
@@ -705,14 +693,14 @@
             if (prevBtn && nextBtn && trendingCards) {
                 nextBtn.addEventListener('click', () => {
                     trendingCards.scrollBy({
-                        left: 250 + 16, // card width + gap
+                        left: 250 + 16, 
                         behavior: 'smooth'
                     });
                 });
                 
                 prevBtn.addEventListener('click', () => {
                     trendingCards.scrollBy({
-                        left: -(250 + 16), // card width + gap
+                        left: -(250 + 16), 
                         behavior: 'smooth'
                     });
                 });
