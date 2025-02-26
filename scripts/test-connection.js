@@ -10,7 +10,6 @@ async function testConnection() {
         await client.connect();
         console.log('Successfully connected to MongoDB!');
         
-        // List databases to verify connection
         const dbs = await client.db().admin().listDatabases();
         console.log('\nAvailable databases:');
         dbs.databases.forEach(db => console.log(` - ${db.name}`));
