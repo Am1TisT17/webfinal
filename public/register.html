@@ -26,7 +26,6 @@
             padding: 0 1rem;
         }
 
-        /* Header */
         .header {
             background-color: #e179bfd9;
             padding: 0.5rem 0;
@@ -103,7 +102,6 @@
             color: white;
         }
 
-        /* Auth container styles */
         .auth-container {
             max-width: 1000px;
             background: rgba(255, 255, 255, 0.9);
@@ -182,7 +180,6 @@
             text-decoration: underline;
         }
 
-        /* Success and error messages */
         .success-message, .error-message {
             padding: 1rem;
             border-radius: 10px;
@@ -233,7 +230,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .header {
                 height: auto;
@@ -339,7 +335,6 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Валидация на стороне клиента
             if (password !== confirmPassword) {
                 showError('Пароли не совпадают!');
                 return;
@@ -365,10 +360,8 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    // Показываем сообщение об успехе
                     showSuccess('Регистрация успешна! Перенаправление на страницу входа...');
                     
-                    // Перенаправляем на страницу логина
                     setTimeout(() => {
                         window.location.href = 'login.html';
                     }, 2000);

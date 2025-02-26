@@ -279,7 +279,6 @@
             color: white;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .header {
                 height: auto;
@@ -380,7 +379,6 @@
         let currentUser = null;
         let recipes = [];
 
-        // Проверка авторизации и управление отображением кнопок
         function checkAuth() {
             const token = localStorage.getItem('token');
             const guestButtons = document.getElementById('guestButtons');
@@ -396,7 +394,6 @@
             }
         }
 
-        // Получение текущего пользователя
         async function getCurrentUser() {
             const token = localStorage.getItem('token');
             if (!token) return null;
@@ -457,15 +454,11 @@
     `).join('');
 }
 
-// Функция для просмотра деталей рецепта
 function viewRecipeDetails(recipeId) {
-    // Сохраняем ID рецепта в localStorage для использования на странице деталей
     localStorage.setItem('viewRecipeId', recipeId);
-    // Перенаправляем на страницу деталей
     window.location.href = `recipe-details.html`;
 }
 
-        // Удаление рецепта
         async function deleteRecipe(recipeId) {
             if (!confirm('Вы уверены, что хотите удалить этот рецепт?')) return;
 
@@ -493,7 +486,6 @@ function viewRecipeDetails(recipeId) {
             }
         }
 
-        // Поиск и фильтрация
         document.getElementById('searchInput').addEventListener('input', filterRecipes);
         document.getElementById('categoryFilter').addEventListener('change', filterRecipes);
 
@@ -525,15 +517,11 @@ function viewRecipeDetails(recipeId) {
         function showError(message) {
         }
 
-        // Добавим функцию редактирования
         function editRecipe(recipeId) {
-            // Сохраняем ID рецепта для редактирования
             localStorage.setItem('editRecipeId', recipeId);
-            // Перенаправляем на страницу редактирования
             window.location.href = `edit-recipe.html`;
         }
 
-        // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', () => {
             checkAuth();
             loadRecipes();
